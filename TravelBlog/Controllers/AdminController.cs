@@ -8,7 +8,7 @@ using TBRepo;
 
 namespace TravelBlog.Controllers
 {
-    public class AdminController : Controller
+    public class AdminController : AdminBaseController
     {
         private AdminRepository repo = new AdminRepository();
         private UserRepository urepo = new UserRepository();
@@ -16,27 +16,6 @@ namespace TravelBlog.Controllers
         public ActionResult Index()
         {
             return View();
-        }
-
-        [HttpGet]
-        public ActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Login(Admin admin)
-        {
-            bool valid = repo.Validate(admin);
-            if (valid)
-            {
-                Session["AdminEmail"] = admin.Email;
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return Content("Invalid username or password");
-            }
         }
 
         public ActionResult Profile()
@@ -142,11 +121,44 @@ namespace TravelBlog.Controllers
             return View(u);
         }
 
-        [HttpPost][ActionName("Delete")]
+        [HttpPost][ActionName("DeleteUser")]
         public ActionResult DeleteConfirmed(int id)
         {
             this.urepo.DeleteUser(id);
             return RedirectToAction("UserList");
+        }
+
+        public ActionResult AdminList()
+        {
+            return View(this.repo.GetAllAdmin());
+        }
+
+        [HttpGet]
+        public ActionResult AdminDetails(int id)
+        {
+            Admin a = this.repo.GetAdmin(id);
+            return View(a);
+        }
+
+        [HttpGet]
+        public ActionResult DeleteAdmin(int id)
+        {
+            Admin a = this.repo.GetAdmin(id);
+            return View(a);
+        }
+
+        [HttpPost]
+        [ActionName("DeleteAdmin")]
+        public ActionResult DeleteConf(int id)
+        {
+            this.repo.DeleteAdmin(id);
+            return RedirectToAction("AdminList");
+        }
+
+        public ActionResult SignOut()
+        {
+            Session.Remove("AdminEmail");
+            return RedirectToAction("Index", "Default");
         }
     }
 }

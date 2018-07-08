@@ -158,8 +158,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminBaseController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\UserBaseController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -178,7 +179,7 @@
     <Content Include="Views\Shared\_Navber.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\Admin\Login.cshtml" />
-    <Content Include="Views\Default\Login.cshtml" />
+    <Content Include="Views\Default\UserLogin.cshtml" />
     <Content Include="Views\Shared\Admin_Navbar.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Profile.cshtml" />
@@ -190,6 +191,10 @@
     <Content Include="Views\Admin\UserList.cshtml" />
     <Content Include="Views\Admin\UserDetails.cshtml" />
     <Content Include="Views\Admin\DeleteUser.cshtml" />
+    <Content Include="Views\Default\AdminLogin.cshtml" />
+    <Content Include="Views\Admin\AdminList.cshtml" />
+    <Content Include="Views\Admin\AdminDetails.cshtml" />
+    <Content Include="Views\Admin\DeleteAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -200,6 +205,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\AdminBase\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

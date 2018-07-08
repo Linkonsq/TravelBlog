@@ -12,6 +12,7 @@ namespace TravelBlog.Controllers
     {
         private TBReposetory  repo = new TBReposetory();
         private UserRepository urepo = new UserRepository();
+        private AdminRepository arepo = new AdminRepository();
 
         public ActionResult Index()
         {
@@ -50,19 +51,40 @@ namespace TravelBlog.Controllers
         }
 
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult UserLogin()
         {
-            return View("Login");
+            return View("UserLogin");
         }
 
         [HttpPost]
-        public ActionResult Login(User user)
+        public ActionResult UserLogin(User user)
         {
             bool valid = urepo.Validate(user);
             if (valid)
             {
                 Session["Email"] = user.Email;
                 return RedirectToAction("Index", "User");
+            }
+            else
+            {
+                return Content("Invalid username or password");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult AdminLogin()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AdminLogin(Admin admin)
+        {
+            bool valid = arepo.Validate(admin);
+            if (valid)
+            {
+                Session["AdminEmail"] = admin.Email;
+                return RedirectToAction("Index", "Admin");
             }
             else
             {

@@ -65,5 +65,22 @@ namespace TBRepo
             adminToUpdate.Password = oldPass;
             return this.context.SaveChanges();
         }
+
+        public List<Admin> GetAllAdmin()
+        {
+            return this.context.Admins.ToList();
+        }
+
+        public Admin GetAdmin(int id)
+        {
+            return this.context.Admins.SingleOrDefault(p => p.Id == id);
+        }
+
+        public int DeleteAdmin(int id)
+        {
+            Admin adminToDelete = this.GetAdmin(id);
+            this.context.Admins.Remove(adminToDelete);
+            return this.context.SaveChanges();
+        }
     }
 }

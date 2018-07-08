@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace TravelBlog.Controllers
 {
-    public class BaseController : Controller
+    public class UserBaseController : Controller
     {
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {

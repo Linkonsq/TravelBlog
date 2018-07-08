@@ -8,7 +8,7 @@ using TBRepo;
 
 namespace TravelBlog.Controllers
 {
-    public class UserController : BaseController
+    public class UserController : UserBaseController
     {
         private TBReposetory repo = new TBReposetory();
 
@@ -78,6 +78,12 @@ namespace TravelBlog.Controllers
                 }
             }
             return RedirectToAction("ChangePassword");
+        }
+
+        public ActionResult SignOut()
+        {
+            Session.Remove("Email");
+            return RedirectToAction("Index", "Default");
         }
     }
 }
