@@ -29,24 +29,31 @@ namespace TravelBlog.Controllers
         [HttpPost]
         public ActionResult Regester(FormCollection collection)
         {
-            User user = new User();
-            user.FirstName = collection["fname"];
-            user.LastName = collection["lname"];
-            user.Email = collection["email"];
-            user.Phone = collection["phone"];
-            user.Division = collection["division"];
-            user.Address = collection["address"];
-            user.Password = collection["password"];
-            
-            bool existUser = repo.IsExistUser(user.Email);
-            if (!existUser)
+            if(collection["fname"]!="" && collection["lname"] != "" && collection["email"] != "" && collection["phone"] != "" && collection["address"] != "" && collection["password"] != "")
             {
-                this.repo.Regestration(user);
-                return RedirectToAction("Index");
+                User user = new User();
+                user.FirstName = collection["fname"];
+                user.LastName = collection["lname"];
+                user.Email = collection["email"];
+                user.Phone = collection["phone"];
+                user.Division = collection["division"];
+                user.Address = collection["address"];
+                user.Password = collection["password"];
+
+                bool existUser = repo.IsExistUser(user.Email);
+                if (!existUser)
+                {
+                    this.repo.Regestration(user);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return Content("User with this email is already exist");
+                }
             }
             else
             {
-                return Content("User with this email is already exist");
+                return Content("Please fill all the field");
             }
         }
 
@@ -57,12 +64,17 @@ namespace TravelBlog.Controllers
         }
 
         [HttpPost]
-        public ActionResult UserLogin(User user)
+        public ActionResult UserLogin(FormCollection collection)
         {
-            bool valid = urepo.Validate(user);
-            if (valid)
+            User user = new User();
+            user = this.repo.login(collection["email"], collection["password"]);
+            Session["uModel"] = user;
+            //bool valid = urepo.Validate(user);
+            if (user!=null)
             {
                 Session["Email"] = user.Email;
+                Session["Id"] = user.Id;
+                Session["name"] = user.FirstName;
                 return RedirectToAction("Index", "User");
             }
             else

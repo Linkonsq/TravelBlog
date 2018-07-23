@@ -18,13 +18,11 @@
                 <a class="nav-link" href="@Url.Action("Profile", "User")">Profile</a>
             </li>
             <li class="nav-item" style="margin-right:15px">
-                <a class="nav-link" href="#">Settings</a>
+                <a class="nav-link" href="@Url.Action("Settings", "User")">Settings</a>
             </li>
+
             <li class="nav-item" style="margin-right:15px">
-                <a class="nav-link" href="#">My Story</a>
-            </li>
-            <li class="nav-item" style="margin-right:15px">
-                <a class="nav-link" href="#">Blog</a>
+                <a class="nav-link" href="@Url.Action("UBlog", "User")">Blog</a>
             </li>
             <li class="nav-item" style="margin-right:15px">
                 <a class="nav-link" href="#">About Us</a>
@@ -32,8 +30,8 @@
             <li class="nav-item" style="margin-right:15px">
                 <a class="nav-link" href="@Url.Action("SignOut", "User")">Sign Out</a>
             </li>
-            <form class="form-inline" style="margin-left:380px" action="">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search Blogs by Divisions" style="width:225px">
+            <form class="form-inline" style="margin-left:380px" action="/Blog/SrcBlog" method="post">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search Blogs " id="SResult" style="width:225px" name="SResult">
                 <button class="btn btn-success" type="submit">Search</button>
             </form>
         </ul>

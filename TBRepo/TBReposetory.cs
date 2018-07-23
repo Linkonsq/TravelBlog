@@ -25,5 +25,9 @@ namespace TBRepo
             if (q.Any()) return true;
             else return false;
         }
+        public User login(string email, string pass)
+        {
+            return this.context.Users.SingleOrDefault(p => p.Email == email && p.Password == pass);
+        }
     }
 }

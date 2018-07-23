@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminRepository.cs" />
+    <Compile Include="BlogRepo.cs" />
     <Compile Include="TBDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TBReposetory.cs" />

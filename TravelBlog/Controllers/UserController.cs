@@ -42,15 +42,22 @@ namespace TravelBlog.Controllers
         [HttpPost]
         public ActionResult Edit(FormCollection collection)
         {
-            User user = new User();
-            user.Email = Session["Email"].ToString();
-            user.FirstName = collection["fname"];
-            user.LastName = collection["lname"];
-            user.Phone = collection["phone"];
-            user.Division = collection["division"];
-            user.Address = collection["address"];
-            this.urepo.Update(user);
-            return RedirectToAction("Profile");
+            if (collection["fname"] != "" && collection["lname"] != "" && collection["phone"] != "" && collection["address"] != "")
+            {
+                User user = new User();
+                user.Email = Session["Email"].ToString();
+                user.FirstName = collection["fname"];
+                user.LastName = collection["lname"];
+                user.Phone = collection["phone"];
+                user.Division = collection["division"];
+                user.Address = collection["address"];
+                this.urepo.Update(user);
+                return RedirectToAction("Profile");
+            }
+            else
+            {
+                return Content("Please fill all the field");
+            }
         }
 
         [HttpGet]
@@ -76,6 +83,14 @@ namespace TravelBlog.Controllers
                 {
                     this.urepo.ChangePass(Session["Email"].ToString(), newPass);
                 }
+                else
+                {
+                    return Content("Password doesn't match");
+                }
+            }
+            else
+            {
+                return Content("Please enter the current password correctly");
             }
             return RedirectToAction("ChangePassword");
         }
@@ -84,6 +99,14 @@ namespace TravelBlog.Controllers
         {
             Session.Remove("Email");
             return RedirectToAction("Index", "Default");
+        }
+        public ActionResult UBlog()
+        {
+            return View();
+        }
+        public ActionResult Settings()
+        {
+            return View();
         }
     }
 }

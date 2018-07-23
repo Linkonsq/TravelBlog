@@ -160,6 +160,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminBaseController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\UserBaseController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -195,6 +196,14 @@
     <Content Include="Views\Admin\AdminList.cshtml" />
     <Content Include="Views\Admin\AdminDetails.cshtml" />
     <Content Include="Views\Admin\DeleteAdmin.cshtml" />
+    <Content Include="Views\User\UBlog.cshtml" />
+    <Content Include="Views\User\Settings.cshtml" />
+    <Content Include="Views\Blog\Index.cshtml" />
+    <Content Include="Views\Blog\SBlog.cshtml" />
+    <Content Include="Views\Blog\BlogDetails.cshtml" />
+    <Content Include="Views\Blog\DeleteBlog.cshtml" />
+    <Content Include="Views\Blog\SrcBlog.cshtml" />
+    <Content Include="Views\Blog\ABlog.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -35,15 +35,22 @@ namespace TravelBlog.Controllers
         [HttpPost]
         public ActionResult Edit(FormCollection collection)
         {
-            Admin admin = new Admin();
-            admin.Email = Session["AdminEmail"].ToString();
-            admin.FirstName = collection["fname"];
-            admin.LastName = collection["lname"];
-            admin.Phone = collection["phone"];
-            admin.Division = collection["division"];
-            admin.Address = collection["address"];
-            this.repo.Update(admin);
-            return RedirectToAction("Profile");
+            if(collection["fname"] != "" && collection["lname"] != "" && collection["phone"] != "" && collection["address"] != "")
+            {
+                Admin admin = new Admin();
+                admin.Email = Session["AdminEmail"].ToString();
+                admin.FirstName = collection["fname"];
+                admin.LastName = collection["lname"];
+                admin.Phone = collection["phone"];
+                admin.Division = collection["division"];
+                admin.Address = collection["address"];
+                this.repo.Update(admin);
+                return RedirectToAction("Profile");
+            }
+            else
+            {
+                return Content("Please fill all the field");
+            }
         }
 
         [HttpGet]
@@ -69,6 +76,14 @@ namespace TravelBlog.Controllers
                 {
                     this.repo.ChangePass(Session["AdminEmail"].ToString(), newPass);
                 }
+                else
+                {
+                    return Content("Password doesn't match");
+                }
+            }
+            else
+            {
+                return Content("Please enter the current password correctly");
             }
             return RedirectToAction("ChangePassword");
         }
@@ -82,24 +97,32 @@ namespace TravelBlog.Controllers
         [HttpPost]
         public ActionResult AddAdmin(FormCollection collection)
         {
-            Admin admin = new Admin();
-            admin.FirstName = collection["fname"];
-            admin.LastName = collection["lname"];
-            admin.Email = collection["email"];
-            admin.Phone = collection["phone"];
-            admin.Division = collection["division"];
-            admin.Address = collection["address"];
-            admin.Password = collection["password"];
-            bool existAdmin = repo.IsExistAdmin(admin.Email);
-            if (!existAdmin)
+            if(collection["fname"] != "" && collection["lname"] != "" && collection["email"] != "" && collection["phone"] != "" && collection["address"] != "" && collection["password"] != "")
             {
-                this.repo.Insert(admin);
-                return RedirectToAction("Index");
+                Admin admin = new Admin();
+                admin.FirstName = collection["fname"];
+                admin.LastName = collection["lname"];
+                admin.Email = collection["email"];
+                admin.Phone = collection["phone"];
+                admin.Division = collection["division"];
+                admin.Address = collection["address"];
+                admin.Password = collection["password"];
+                bool existAdmin = repo.IsExistAdmin(admin.Email);
+                if (!existAdmin)
+                {
+                    this.repo.Insert(admin);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return Content("Admin with this email is already exist");
+                }
             }
             else
             {
-                return Content("Admin with this email is already exist");
+                return Content("Please fill all the field");
             }
+            
         }
 
         public ActionResult UserList()
